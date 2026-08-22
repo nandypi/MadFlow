@@ -3,3 +3,5 @@
 credentials.json
 token.json
 submissions/
+
+*__pycache__/
