@@ -2,6 +2,7 @@ from pathlib import Path
 import shutil
 import time
 import zipfile
+import dotenv
 
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
@@ -14,8 +15,9 @@ from googleapiclient.http import MediaIoBaseDownload
 # ============================================================
 # CONFIGURATION
 # ============================================================
+dotenv.load_dotenv()
 
-FOLDER_ID = "1qQa62frhU44jHaLBZ2wBHK1uDtIMNl3x"
+FOLDER_ID = dotenv.get_key(".env", "GDRIVE_FOLDER_ID")
 
 MAX_WAIT_MINUTES = 15
 POLL_INTERVAL_SECONDS = 3
@@ -921,21 +923,6 @@ def run_viva_flow():
             extract_zip(
                 local_zip
             )
-        )
-
-        # ----------------------------------------------------
-        # DELETE LOCAL ZIP
-        # ----------------------------------------------------
-
-        print()
-        print(
-            "Deleting local ZIP..."
-        )
-
-        local_zip.unlink()
-
-        print(
-            "✓ Local ZIP deleted."
         )
 
         # ----------------------------------------------------
