@@ -232,11 +232,13 @@ def remove_item_from_folder(
                 file_name,
             )
 
-        logger.debug(
-            "Permanent delete failed for %s: %s",
-            file_name,
-            delete_error,
-        )
+        else:
+
+            logger.warning(
+                "Permanent delete failed for %s: %s",
+                file_name,
+                delete_error,
+            )
 
         try:
 
