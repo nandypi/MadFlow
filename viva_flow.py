@@ -146,8 +146,14 @@ def get_drive_service():
 # VIVA FLOW
 # ============================================================
 
-def viva_flow():
+def viva_flow(student_email: str = None):
+    
+    if not student_email:
 
+        raise ValueError(
+            "Student email cannot be empty."
+        )
+    
     FOLDER_ID = os.environ.get("GDRIVE_FOLDER_ID")
 
     if not FOLDER_ID:
@@ -156,15 +162,7 @@ def viva_flow():
             "GDRIVE_FOLDER_ID is missing from .env"
         )
 
-    student_email = input(
-        "Enter student email: "
-    ).strip()
 
-    if not student_email:
-
-        raise ValueError(
-            "Student email cannot be empty."
-        )
 
     logger.info(
         "Starting Viva flow for %s",

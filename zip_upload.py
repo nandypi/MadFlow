@@ -136,7 +136,7 @@ def give_student_edit_access(
             "role": "writer",
             "emailAddress": student_email,
         },
-        sendNotificationEmail=True,
+        sendNotificationEmail=False,
         fields="id,type,role,emailAddress",
     ).execute()
 

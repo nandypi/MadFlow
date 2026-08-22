@@ -33,7 +33,11 @@ def main():
 
     try:
 
-        viva_flow()
+        student_email = input(
+            "Enter student email: "
+        ).strip()
+
+        viva_flow(student_email=student_email)
 
         logger.info(
             "Viva system finished"

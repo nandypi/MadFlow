@@ -54,7 +54,7 @@ def give_temporary_edit_access(
     result = service.permissions().create(
         fileId=GDOC_FILE_ID,
         body=permission,
-        sendNotificationEmail=True,
+        sendNotificationEmail=False,
         fields="id,type,role,emailAddress,expirationTime",
     ).execute()
 
