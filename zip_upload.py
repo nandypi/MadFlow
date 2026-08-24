@@ -11,7 +11,7 @@ from googleapiclient.http import MediaIoBaseDownload
 logger = logging.getLogger(__name__)
 
 
-MAX_WAIT_MINUTES = 15
+MAX_WAIT_MINUTES = 6
 POLL_INTERVAL_SECONDS = 3
 
 
@@ -359,6 +359,7 @@ def wait_for_zip(service):
     )
 
     start_time = time.monotonic()
+    max_wait = MAX_WAIT_MINUTES * 60
 
     while True:
 
@@ -367,10 +368,12 @@ def wait_for_zip(service):
             - start_time
         )
 
-        if elapsed >= MAX_WAIT_MINUTES * 60:
+        if elapsed >= max_wait:
+            print()
 
             logger.warning(
-                "15-minute upload timeout reached"
+                "%d-minute upload timeout reached",
+                MAX_WAIT_MINUTES
             )
 
             return None
@@ -378,6 +381,7 @@ def wait_for_zip(service):
         zip_file = find_zip(service)
 
         if zip_file:
+            print()
 
             logger.info(
                 "ZIP detected: %s",
@@ -386,23 +390,19 @@ def wait_for_zip(service):
 
             return zip_file
 
-        remaining = (
-            MAX_WAIT_MINUTES * 60
-            - elapsed
-        )
+        remaining = max_wait - elapsed
 
         minutes = int(
             remaining // 60
         )
-
         seconds = int(
             remaining % 60
         )
 
-        logger.info(
-            "Waiting for ZIP... %02d:%02d remaining",
-            minutes,
-            seconds,
+        print(
+            f"\rWaiting for ZIP... {minutes:02d}:{seconds:02d} remaining",
+            end="",
+            flush=True
         )
 
         time.sleep(
@@ -600,7 +600,7 @@ def run_upload_flow(
 
         1. ZIP is uploaded
         OR
-        2. 15 minutes expire
+        2. MAX_WAIT_MINUTES minutes expire
 
     Whichever happens first causes folder
     access to be revoked.
@@ -650,7 +650,7 @@ def run_upload_flow(
         if not zip_file:
 
             logger.warning(
-                "No ZIP submitted within 15 minutes"
+                f"No ZIP submitted within {MAX_WAIT_MINUTES} minutes"
             )
 
             return None

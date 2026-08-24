@@ -248,7 +248,7 @@ The student only needs to upload their project ZIP while you supervise the proce
 
 ## Waiting behavior
 
-The default maximum waiting time is **15 minutes**.
+The default maximum waiting time is **6 minutes**.
 
 The script does not require the student to upload within a fixed short period.
 

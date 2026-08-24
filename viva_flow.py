@@ -7,8 +7,6 @@ from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 from googleapiclient.discovery import build
 
-
-from doc_access import give_temporary_edit_access
 from zip_upload import (
     configure as configure_zip_upload,
     clean_local_submissions,
@@ -163,7 +161,6 @@ def viva_flow(student_email: str = None):
         )
 
 
-
     logger.info(
         "Starting Viva flow for %s",
         student_email,
@@ -177,26 +174,6 @@ def viva_flow(student_email: str = None):
     )
 
     clean_local_submissions()
-
-    # ========================================================
-    # GOOGLE DOC
-    # ========================================================
-
-    logger.info(
-        "Granting Google Doc access"
-    )
-
-    doc_permission_id = (
-        give_temporary_edit_access(
-            service,
-            student_email,
-        )
-    )
-
-    logger.info(
-        "Google Doc access is active for "
-        "approximately 30 minutes"
-    )
 
     # ========================================================
     # ZIP UPLOAD
@@ -249,20 +226,9 @@ def viva_flow(student_email: str = None):
 
     finally:
 
-        # ----------------------------------------------------
-        # IMPORTANT:
-        #
-        # We DO NOT manually revoke the Doc here.
-        #
-        # Google will automatically expire the
-        # permission after approximately 30 minutes.
-        # ----------------------------------------------------
-
         logger.info(
-            "Google Doc permission ID: %s",
-            doc_permission_id,
+            "Viva flow completed for %s",
+            student_email,
         )
 
-        logger.info(
-            "Google Doc access will expire automatically"
-        )
+    

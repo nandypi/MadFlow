@@ -1,0 +1,11 @@
+Please follow these steps carefully:
+
+📦 1. Download ZIP FILE from the Viva Portal.
+
+📤 2. Upload ZIP FILE to this folder:
+https://drive.google.com/drive/folders/{FolderID}
+
+📄 3. Open this document and keep it in background:
+https://docs.google.com/document/d/{DocID}
+
+👍 4. You can proceed with RUNNING your app!
