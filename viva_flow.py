@@ -2,6 +2,9 @@ import logging
 import os
 from pathlib import Path
 
+import dotenv
+dotenv.load_dotenv()
+
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -231,4 +234,7 @@ def viva_flow(student_email: str = None):
             student_email,
         )
 
-    
+
+if __name__ == "__main__":
+
+    viva_flow("parnapalli2004@gmail.com")
